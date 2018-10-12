@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Concert;
 use App\Order;
 use App\Reservation;
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class OrderTest extends TestCase
 {

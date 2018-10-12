@@ -7,6 +7,7 @@
     "require": {
         "php": ">=5.6.4",
         "hashids/hashids": "^3.0",
+        "laravel/dusk": "^1.1",
         "laravel/framework": "5.4.*",
         "stripe/stripe-php": "^6.19",
         "zondicons/blade-bridge": "0.1.0"
@@ -27,9 +28,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests"
-        ]
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "scripts": {
         "post-root-package-install": [

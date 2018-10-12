@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Concert;
 use App\Reservation;
 use App\Ticket;
@@ -7,6 +9,8 @@ use App\Billing\FakePaymentGateway;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+use Tests\TestCase;
 
 class ReservationTest extends TestCase
 {

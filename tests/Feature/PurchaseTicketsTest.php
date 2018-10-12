@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Concert;
 use App\OrderConfirmationNumberGenerator;
 use App\Billing\PaymentGateway;
@@ -11,6 +13,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Mail;
+use Tests\TestCase;
 
 class PurchaseTicketsTest extends TestCase
 {
@@ -21,6 +24,7 @@ class PurchaseTicketsTest extends TestCase
         parent::setUp();
         $this->paymentGateway = new FakePaymentGateway;
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
+        Mail::fake();
     }
 
     private function orderTickets($concert, $params)
@@ -55,7 +59,6 @@ class PurchaseTicketsTest extends TestCase
     public function customer_can_purchase_concert_tickets_to_a_published_concert()
     {
         $this->disableExceptionHandling();
-        Mail::fake();
 
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
         TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
