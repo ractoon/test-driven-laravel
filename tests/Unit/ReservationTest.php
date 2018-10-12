@@ -52,9 +52,9 @@ class ReservationTest extends TestCase
     public function reserved_tickets_are_released_when_a_reservation_is_cancelled()
     {
         $tickets = collect([
-            Mockery::spy(Ticket::class),
-            Mockery::spy(Ticket::class),
-            Mockery::spy(Ticket::class),
+            \Mockery::spy(Ticket::class),
+            \Mockery::spy(Ticket::class),
+            \Mockery::spy(Ticket::class),
         ]);
 
         $reservation = new Reservation($tickets, 'john@example.com');

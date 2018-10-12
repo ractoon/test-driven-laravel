@@ -22,9 +22,9 @@ class OrderTest extends TestCase
 	{
 		$charge = new Charge(['amount' => 3600, 'card_last_four' => '1234']);
 		$tickets = collect([
-			Mockery::spy(Ticket::class),
-			Mockery::spy(Ticket::class),
-			Mockery::spy(Ticket::class),
+			\Mockery::spy(Ticket::class),
+			\Mockery::spy(Ticket::class),
+			\Mockery::spy(Ticket::class),
 		]);
 
 		$order = Order::forTickets($tickets, 'john@example.com', $charge);

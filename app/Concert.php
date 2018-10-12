@@ -12,9 +12,24 @@ class Concert extends Model
 
     protected $dates = ['date'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopePublished($query)
     {
     	return $query->whereNotNull('published_at');
+    }
+
+    public function isPublished()
+    {
+        return $this->published_at !== null;
+    }
+
+    public function publish()
+    {
+        $this->update(['published_at' => $this->freshTimestamp()]);
     }
 
     public function getFormattedDateAttribute()

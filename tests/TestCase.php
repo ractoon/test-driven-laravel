@@ -6,6 +6,7 @@ use Exception;
 use Mockery;
 use App\Exceptions\Handler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Foundation\Testing\TestResponse;
 
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
@@ -21,6 +22,11 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
     protected function setUp()
     {
         parent::setUp();
+
+        TestResponse::macro('data', function ($key) {
+            return $this->original->getData()[$key];
+        });
+
         Mockery::getConfiguration()->allowMockingNonExistentMethods(false);
     }
 
