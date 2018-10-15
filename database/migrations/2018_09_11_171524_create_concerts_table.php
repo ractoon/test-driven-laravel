@@ -19,12 +19,13 @@ class CreateConcertsTable extends Migration
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->datetime('date');
-            $table->integer('ticket_price');
             $table->string('venue');
             $table->string('venue_address');
             $table->string('city');
             $table->string('state');
             $table->string('zip');
+            $table->integer('ticket_price');
+            $table->integer('ticket_quantity');
             $table->string('additional_information')->nullable();
             $table->datetime('published_at')->nullable();
             $table->timestamps();
