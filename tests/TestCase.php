@@ -27,6 +27,10 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
             return $this->original->getData()[$key];
         });
 
+        TestResponse::macro('assertViewIs', function ($name) {
+            Assert::assertEquals($name, $this->original->name());
+        });
+
         Mockery::getConfiguration()->allowMockingNonExistentMethods(false);
     }
 
