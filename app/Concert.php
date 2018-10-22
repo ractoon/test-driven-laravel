@@ -2,14 +2,13 @@
 
 namespace App;
 
-use App\Reservation;
-use App\Exceptions\NotEnoughTicketsException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use App\Exceptions\NotEnoughTicketsException;
 
 class Concert extends Model
 {
     protected $guarded = [];
-
     protected $dates = ['date'];
 
     public function user()
@@ -24,7 +23,7 @@ class Concert extends Model
 
     public function scopePublished($query)
     {
-    	return $query->whereNotNull('published_at');
+        return $query->whereNotNull('published_at');
     }
 
     public function isPublished()
@@ -40,17 +39,17 @@ class Concert extends Model
 
     public function getFormattedDateAttribute()
     {
-    	return $this->date->format('F j, Y');
+        return $this->date->format('F j, Y');
     }
 
     public function getFormattedStartTimeAttribute()
     {
-    	return $this->date->format('g:ia');
+        return $this->date->format('g:ia');
     }
 
     public function getTicketPriceInDollarsAttribute()
     {
-    	return number_format($this->ticket_price / 100, 2);
+        return number_format($this->ticket_price / 100, 2);
     }
 
     public function orders()
@@ -125,5 +124,15 @@ class Concert extends Model
     public function revenueInDollars()
     {
         return $this->orders()->sum('amount') / 100;
+    }
+
+    public function hasPoster()
+    {
+        return $this->poster_image_path !== null;
+    }
+
+    public function posterUrl()
+    {
+        return Storage::disk('public')->url($this->poster_image_path);
     }
 }
