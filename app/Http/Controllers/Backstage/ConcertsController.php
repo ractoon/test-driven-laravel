@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use Auth;
 use App\Concert;
 use App\NullFile;
-use App\Events\ConcertAdded;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Events\ConcertAdded;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ConcertsController extends Controller
 {
@@ -23,12 +23,12 @@ class ConcertsController extends Controller
 
     public function create()
     {
-    	return view('backstage.concerts.create');
+        return view('backstage.concerts.create');
     }
 
     public function store()
     {
-    	$this->validate(request(), [
+        $this->validate(request(), [
             'title' => ['required'],
             'date' => ['required', 'date'],
             'time' => ['required', 'date_format:g:ia'],
@@ -42,10 +42,10 @@ class ConcertsController extends Controller
             'poster_image' => ['nullable', 'image', Rule::dimensions()->minWidth(600)->ratio(8.5/11)],
         ]);
 
-    	$concert = Auth::user()->concerts()->create([
-    		'title' => request('title'),
-    		'subtitle' => request('subtitle'),
-    		'additional_information' => request('additional_information'),
+        $concert = Auth::user()->concerts()->create([
+            'title' => request('title'),
+            'subtitle' => request('subtitle'),
+            'additional_information' => request('additional_information'),
             'date' => Carbon::parse(vsprintf('%s %s', [
                 request('date'),
                 request('time'),
@@ -56,13 +56,13 @@ class ConcertsController extends Controller
             'state' => request('state'),
             'zip' => request('zip'),
             'ticket_price' => request('ticket_price') * 100,
-    	   'ticket_quantity' => (int) request('ticket_quantity'),
-           'poster_image_path' => request('poster_image', new NullFile)->store('posters', 'public'),
+            'ticket_quantity' => (int) request('ticket_quantity'),
+            'poster_image_path' => request('poster_image', new NullFile)->store('posters', 'public'),
         ]);
 
         ConcertAdded::dispatch($concert);
 
-    	return redirect()->route('backstage.concerts.index');
+        return redirect()->route('backstage.concerts.index');
     }
 
     public function edit($id)
@@ -79,7 +79,6 @@ class ConcertsController extends Controller
     public function update($id)
     {
         $concert = Auth::user()->concerts()->findOrFail($id);
-
         abort_if($concert->isPublished(), 403);
 
         $this->validate(request(), [

@@ -18,7 +18,7 @@ class ViewOrderTest extends TestCase
     /** @test */
     public function user_can_view_their_order_confirmation()
     {
-    	$this->disableExceptionHandling();
+    	$this->withoutExceptionHandling();
 
     	$concert = factory(Concert::class)->states('published')->create([
             'title' => 'The Red Chord',
