@@ -20,8 +20,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'password' => $password ?: $password = '$2y$10$fU1mA/e1VmXYuuEdTOfzr.Y.XrYqk7DaRVp5OlSeNhd09ZlvVESxu',
         'remember_token' => str_random(10),
+        'stripe_account_id' => 'test_acct_1234',
+        'stripe_access_token' => 'test_token',
     ];
 });
 
